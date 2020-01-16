@@ -9,7 +9,7 @@ import pylab
 import librosa.display
 
 
-def save_spec(count):
+def save_spec(sound, user):
     sample_rate, signal = scipy.io.wavfile.read('file.wav')
     signal = signal[0:int(2*sample_rate)]
     emphasized_signal = numpy.append(signal[0], signal[1:] - 0.97 * signal[:-1])
@@ -79,14 +79,14 @@ def save_spec(count):
     ax = plt.gca()
     ax.invert_yaxis()
     plt.title('spectrogram')
-    plt.savefig('spec_' + str(count) + '.jpeg')
+    plt.savefig('spec_' + str(user) + str(sound) + '.jpeg')
     plt.clf()
 
 
-def save_libro_spec(count):
+def save_libro_spec(sound, user):
     sig, fs = librosa.load('file.wav')
     # make pictures name
-    save_path = 'spec_libro_'+ str(count) +'.jpeg'
+    save_path = 'spec_libro_'+ str(user) + str(sound) +'.jpeg'
 
     pylab.axis('off')  # no axis
     pylab.axes([0., 0., 1., 1.], frameon=False, xticks=[], yticks=[])  # Remove the white edge

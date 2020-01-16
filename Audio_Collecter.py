@@ -115,6 +115,7 @@ class RecordScreen(Screen):
         wave_file.close()
 
         self.save_img()
+        self.show_img()
 
     def save_img(self):
         lis = self.char_img.source[:]
@@ -136,8 +137,8 @@ class RecordScreen(Screen):
         plt.savefig(current_img)
         plt.clf()
 
-        save_spec.save_spec(self.sound_id)
-        save_spec.save_libro_spec(self.sound_id)
+        save_spec.save_spec(self.sound_id, USER_INFO[0])
+        save_spec.save_libro_spec(self.sound_id, USER_INFO[0])
 
     def next_sound(self):
         lis = self.char_img.source[:]
@@ -168,8 +169,8 @@ class RecordScreen(Screen):
 
         shutil.copy(init_path + 'file.wav', wav_path)
         shutil.copy(init_path + str(USER_INFO[0]) + str(sound) + '.jpeg', img_path)
-        shutil.copy(init_path + str(USER_INFO[0]) + 'spec_' + str(sound) + '.jpeg', spec_path)
-        shutil.copy(init_path + str(USER_INFO[0]) + 'spec_libro_' + str(sound) + '.jpeg', spec_libro_path)
+        shutil.copy(init_path + 'spec_' + str(USER_INFO[0]) + str(sound) + '.jpeg', spec_path)
+        shutil.copy(init_path + 'spec_libro_' + str(USER_INFO[0]) + str(sound) + '.jpeg', spec_libro_path)
         print('saved')
         self.sound_id += str(int(self.sound_id)+1)
 
@@ -182,8 +183,6 @@ class RecordScreen(Screen):
         print('csv_saved')
 
     def check(self):
-        if self.sound_id:
-            self.show_img()
         audio_chunk = 1024
         wav_file = wave.open('/Humanoid_Lab/Audio_classification/file.wav', 'rb')
         audio = pyaudio.PyAudio()
