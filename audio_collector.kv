@@ -1,0 +1,96 @@
+#: kivy 1.11.1
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+<UserInfoScreen>:
+    name: 'Info'
+
+    userId: userId
+    gender: gender
+    age: age
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        space_x: self.size[0]/3
+        Label:
+            text: 'User Info'
+            bold: True
+            size_hint_y: .3
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: self.size[0]/3, 10
+            TextInput:
+                id: userId
+                hint_text: 'ID'
+                height: 40
+                size_hint_y:.25
+            TextInput:
+                id: gender
+                hint_text: 'type M for male \ntype F for female'
+                height: 40
+                size_hint_y:.25
+            TextInput:
+                id: age
+                hint_text: 'age'
+                height: 40
+                size_hint_y:.25
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                size_hint_y:.2
+                Label:
+                    text: ""
+                Button:
+                    text: 'submit'
+                    size_hint_x: .5
+                    size_hint_y: .7
+                    on_release:
+                        root.submit()
+            Label:
+                text: ''
+<RecordScreen>
+    name: 'Record'
+
+    start_stop_button: start_stop_button
+    sound_img: sound_img
+    char_img: char_img
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            Image:
+                id: sound_img
+                source: 'appImg/wait.jpeg'
+        BoxLayout:
+            size_hint_y: .2
+            Image:
+                id: char_img
+                source: 'charImg/cat.jpg'
+            Button:
+                text: 'Remove'
+                on_release: root.remove_file()
+            Button:
+                text: 'Next'
+                on_release: root.next_sound()
+            Button:
+                text: 'Check'
+                on_release: root.check()
+            Button:
+                id: start_stop_button
+                text: 'Start'
+                on_release: root.start_stop()
+
+
+
+
+WindowManager:
+    id: screen_manager
+    transition: FadeTransition()
+    UserInfoScreen:
+        id: info
+        name: 'Info'
+        manager: screen_manager
+    RecordScreen:
+        id: record
+        name: 'Record'
+        manager: screen_manager
+
